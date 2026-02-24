@@ -1,0 +1,592 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nástroje na osobní produktivitu, manažerskou spolupráci a vedení lidí</title>
+  <style>
+    :root {
+      --bg: #ececec;
+      --ink: #0a0a0a;
+      --muted: #4c4c4c;
+      --accent: #99cc33;
+      --accent-dark: #497d00;
+      --card: #ffffff;
+      --border: #cfd3d6;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+      --soft-green: #eef5dc;
+      --soft-green-2: #d9eea8;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Avenir Next", "Avenir", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.35;
+    }
+
+    .wrap {
+      max-width: 1400px;
+      margin: 34px auto 72px;
+      padding: 0 28px;
+    }
+
+    header {
+      margin-bottom: 28px;
+      padding: 6px 6px 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: flex-end;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .slash {
+      width: 8px;
+      height: 46px;
+      background: var(--accent);
+      transform: skewX(-24deg);
+      flex: 0 0 auto;
+    }
+
+    .brand small {
+      display: block;
+      font-size: clamp(18px, 1.55vw, 26px);
+      color: #2d2d2d;
+      margin: 0;
+      line-height: 1;
+    }
+
+    h1 {
+      font-size: clamp(30px, 3.6vw, 50px);
+      margin: 0 0 8px;
+      line-height: 1.08;
+      max-width: 100%;
+    }
+
+    .lead {
+      color: var(--muted);
+      max-width: 90ch;
+      line-height: 1.55;
+      font-size: clamp(15px, 1.35vw, 20px);
+    }
+
+    .card {
+      background: linear-gradient(180deg, #ffffff 0%, #f4f8e9 100%);
+      border: 1px solid #d7dadd;
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      padding: 30px 30px 26px;
+    }
+
+    .block-label {
+      margin: 0 0 10px;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--accent-dark);
+    }
+
+    fieldset {
+      border: none;
+      padding: 0;
+      margin: 0 0 16px;
+    }
+
+    legend {
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 1.2;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .question {
+      padding: 16px 16px 12px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: linear-gradient(135deg, #fbfdf5 0%, var(--soft-green) 100%);
+      margin-bottom: 12px;
+    }
+
+    .q-title {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .q-num {
+      display: inline-grid;
+      place-items: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      background: #0c0c0c;
+      color: #fff;
+      font-weight: 700;
+      font-size: 14px;
+      flex: 0 0 auto;
+      margin-top: 1px;
+    }
+
+    .hint {
+      color: var(--muted);
+      font-size: 14px;
+      margin-top: 8px;
+      line-height: 1.45;
+    }
+
+    .options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 10px 12px;
+    }
+
+    label.option {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #ffffff;
+      border: 1px solid #d2d6d8;
+      padding: 10px 12px;
+      border-radius: 12px;
+      transition: border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+      font-size: 15px;
+    }
+
+    label.option:hover {
+      border-color: #a8b2b7;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.06);
+    }
+
+    textarea,
+    input[type="text"],
+    input[type="number"] {
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid #c8ccd0;
+      padding: 10px 12px;
+      font: inherit;
+      background: #fff;
+      font-size: 15px;
+    }
+
+    textarea:focus,
+    input[type="text"]:focus,
+    input[type="number"]:focus {
+      outline: 2px solid #dbebb5;
+      border-color: #9cc94a;
+    }
+
+    textarea {
+      min-height: 108px;
+      resize: vertical;
+    }
+
+    input[type="checkbox"],
+    input[type="radio"] {
+      accent-color: var(--accent-dark);
+      width: 17px;
+      height: 17px;
+    }
+
+    .row { display: grid; gap: 12px; }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 12px;
+    }
+
+    .matrix-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #fff;
+      margin-top: 10px;
+    }
+
+    .matrix {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 760px;
+    }
+
+    .matrix th,
+    .matrix td {
+      border-bottom: 1px solid #e1e4e7;
+      padding: 9px 10px;
+      text-align: center;
+      vertical-align: middle;
+      background: #fff;
+      font-size: 14px;
+    }
+
+    .matrix th:first-child,
+    .matrix td:first-child {
+      text-align: left;
+      min-width: 360px;
+      background: #f8fbef;
+    }
+
+    .matrix tr:last-child td { border-bottom: none; }
+
+    .small-note {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 8px;
+    }
+
+    .submit {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: var(--accent);
+      color: #111;
+      border: none;
+      padding: 14px 24px;
+      border-radius: 999px;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .submit:hover { transform: translateY(-1px); box-shadow: 0 9px 20px rgba(73, 125, 0, 0.24); }
+
+    .thankyou {
+      display: none;
+      padding: 34px 28px;
+      border-radius: 20px;
+      background: #ffffff;
+      border: 1px solid #d7dadd;
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+
+    .thankyou h2 {
+      margin: 0 0 8px;
+      font-size: 24px;
+    }
+
+    .thankyou p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    @media (max-width: 640px) {
+      .wrap { padding: 0 14px; margin-top: 18px; }
+      .slash { height: 34px; }
+      .brand small { font-size: clamp(14px, 3.8vw, 17px); }
+      .card { padding: 16px 14px; }
+      label.option { padding: 8px 10px; }
+      legend { font-size: 18px; }
+      .hint { font-size: 14px; }
+      .submit { width: 100%; }
+      h1 { max-width: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <span class="slash" aria-hidden="true"></span>
+        <small>Dotazník na téma:</small>
+      </div>
+      <h1>Nástroje na osobní produktivitu, manažerskou spolupráci a vedení lidí</h1>
+      <p class="lead">Mapujeme, jak v leadership týmu řešíme osobní produktivitu, vedení týmů a spolupráci. Cílem je zmapovat stav a potřeby a rozhodnout, jak se postavíme k dalšímu rozvoji nástrojů, včetně rozhodnutí o Notionu.</p>
+    </header>
+
+    <form class="card" id="survey">
+      <p class="block-label">Blok I: Základní údaje</p>
+      <fieldset class="question">
+        <legend class="q-title"><span class="q-num">1</span> Jméno a příjmení</legend>
+        <input type="text" id="name" name="name" placeholder="Volitelné – můžeš zůstat anonymní">
+      </fieldset>
+
+      <fieldset class="question">
+        <legend class="q-title"><span class="q-num">2</span> Divize / Tým</legend>
+        <input type="text" id="division" name="division" required placeholder="Např. IT / Data / Marketing...">
+      </fieldset>
+
+      <fieldset class="question">
+        <legend class="q-title"><span class="q-num">3</span> Počet direct reportů</legend>
+        <input type="number" id="reports" name="reports" min="0" required>
+      </fieldset>
+
+      <p class="block-label">Blok II: Osobní systém práce a manažerský kontext</p>
+      <fieldset class="question">
+        <legend class="q-title"><span class="q-num">4</span> Jak důležité je pro tebe mít jednotné řešení, které propojuje tvoji osobní přípravu, myšlenky, zdroje k rozhodování a manažerskou spolupráci?</legend>
+        <div class="options">
+          <label class="option"><input type="radio" name="unifiedNeed" value="1" required>1 – Vůbec</label>
+          <label class="option"><input type="radio" name="unifiedNeed" value="2">2</label>
+          <label class="option"><input type="radio" name="unifiedNeed" value="3">3</label>
+          <label class="option"><input type="radio" name="unifiedNeed" value="4">4</label>
+          <label class="option"><input type="radio" name="unifiedNeed" value="5">5 – Naprosto klíčové</label>
+        </div>
+      </fieldset>
+
+      <fieldset class="question">
+        <legend class="q-title"><span class="q-num">5</span> Nakolik tě v každodenní práci brzdí následující situace?</legend>
+        <div class="hint">Škála: 1 = Vůbec, 5 = Výrazně.</div>
+        <div class="matrix-wrap">
+          <table class="matrix">
+            <thead>
+              <tr>
+                <th>Situace</th>
+                <th>1</th>
+                <th>2</th>
+                <th>3</th>
+                <th>4</th>
+                <th>5</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Čas na schůzkách bez jasného cíle nebo dostatečné přípravy.</td>
+                <td><input type="radio" name="painMeetings" value="1" required></td>
+                <td><input type="radio" name="painMeetings" value="2"></td>
+                <td><input type="radio" name="painMeetings" value="3"></td>
+                <td><input type="radio" name="painMeetings" value="4"></td>
+                <td><input type="radio" name="painMeetings" value="5"></td>
+              </tr>
+              <tr>
+                <td>Dohledávání historie a kontextu k dřívějším rozhodnutím (proč se co stalo).</td>
+                <td><input type="radio" name="painHistory" value="1" required></td>
+                <td><input type="radio" name="painHistory" value="2"></td>
+                <td><input type="radio" name="painHistory" value="3"></td>
+                <td><input type="radio" name="painHistory" value="4"></td>
+                <td><input type="radio" name="painHistory" value="5"></td>
+              </tr>
+              <tr>
+                <td>Příprava na pravidelné i nárazové schůzky (1:1, porady, briefingy).</td>
+                <td><input type="radio" name="painPrep" value="1" required></td>
+                <td><input type="radio" name="painPrep" value="2"></td>
+                <td><input type="radio" name="painPrep" value="3"></td>
+                <td><input type="radio" name="painPrep" value="4"></td>
+                <td><input type="radio" name="painPrep" value="5"></td>
+              </tr>
+              <tr>
+                <td>Předávání kontextu kolegům (vysvětlování stavu a souvislostí).</td>
+                <td><input type="radio" name="painContext" value="1" required></td>
+                <td><input type="radio" name="painContext" value="2"></td>
+                <td><input type="radio" name="painContext" value="3"></td>
+                <td><input type="radio" name="painContext" value="4"></td>
+                <td><input type="radio" name="painContext" value="5"></td>
+              </tr>
+              <tr>
+                <td>Nemožnost efektivní asynchronní spolupráce (společné tvoření obsahu bez schůzky).</td>
+                <td><input type="radio" name="painAsync" value="1" required></td>
+                <td><input type="radio" name="painAsync" value="2"></td>
+                <td><input type="radio" name="painAsync" value="3"></td>
+                <td><input type="radio" name="painAsync" value="4"></td>
+                <td><input type="radio" name="painAsync" value="5"></td>
+              </tr>
+              <tr>
+                <td>Udržení přehledu nad prioritami napříč různými projekty (nevývojovými).</td>
+                <td><input type="radio" name="painPriorities" value="1" required></td>
+                <td><input type="radio" name="painPriorities" value="2"></td>
+                <td><input type="radio" name="painPriorities" value="3"></td>
+                <td><input type="radio" name="painPriorities" value="4"></td>
+                <td><input type="radio" name="painPriorities" value="5"></td>
+              </tr>
+              <tr>
+                <td>Duplicitní přepisování informací nebo úkolů mezi různými nástroji.</td>
+                <td><input type="radio" name="painDuplication" value="1" required></td>
+                <td><input type="radio" name="painDuplication" value="2"></td>
+                <td><input type="radio" name="painDuplication" value="3"></td>
+                <td><input type="radio" name="painDuplication" value="4"></td>
+                <td><input type="radio" name="painDuplication" value="5"></td>
+              </tr>
+              <tr>
+                <td>Omezený přístup k informacím, když nejsem u počítače (mobilní přístup).</td>
+                <td><input type="radio" name="painMobileAccess" value="1" required></td>
+                <td><input type="radio" name="painMobileAccess" value="2"></td>
+                <td><input type="radio" name="painMobileAccess" value="3"></td>
+                <td><input type="radio" name="painMobileAccess" value="4"></td>
+                <td><input type="radio" name="painMobileAccess" value="5"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </fieldset>
+
+      <fieldset class="question">
+        <legend class="q-title"><span class="q-num">6</span> Jiné: Pokud tě v efektivitě brzdí ještě něco dalšího, doplň prosím co:</legend>
+        <textarea name="otherPain" placeholder="Doplň vlastní pohled..."></textarea>
+      </fieldset>
+
+      <p class="block-label">Blok III: Práce s AI (ChatGPT, Claude) a digitální paměť</p>
+      <fieldset class="question">
+        <legend class="q-title"><span class="q-num">7</span> Kde dnes končí výstupy z tvých konverzací s ChatGPT nebo Claude?</legend>
+        <div class="options">
+          <label class="option"><input type="checkbox" name="aiOutputs" value="Zůstávají v okně chatu (v historii)."> Zůstávají v okně chatu (v historii).</label>
+          <label class="option"><input type="checkbox" name="aiOutputs" value="Vytvářím si tam projekty a ukládám si je tam."> Vytvářím si tam „Projekty“ a ukládám si je tam.</label>
+          <label class="option"><input type="checkbox" name="aiOutputs" value="Kopíruju si je do OneNotu / Wordu / Mailu / Poznámek."> Kopíruju si je do OneNotu / Wordu / Mailu / Poznámek.</label>
+          <label class="option"><input type="checkbox" name="aiOutputs" value="Mám na to systém (např. Notion), kde s nimi dál pracuji a propojuji je s agendou."> Mám na to systém (např. Notion), kde s nimi dál pracuji a propojuji je s agendou.</label>
+          <label class="option"><input type="checkbox" name="aiOutputs" value="Nikam si je neukládám, pracuji s nimi jednorázově."> Nikam si je neukládám, pracuji s nimi jednorázově.</label>
+        </div>
+      </fieldset>
+
+      <p class="block-label">Blok IV: Reflexe současných nástrojů</p>
+      <fieldset class="question">
+        <legend class="q-title"><span class="q-num">8</span> Používáš pro svou práci nebo spolupráci v týmu neoficiální nástroje (např. Notion, Trello, soukromý Evernote)?</legend>
+        <div class="options">
+          <label class="option"><input type="radio" name="usesUnofficial" value="ano" required> Ano</label>
+          <label class="option"><input type="radio" name="usesUnofficial" value="ne"> Ne</label>
+        </div>
+        <div class="row" style="margin-top:10px;">
+          <input type="text" id="unofficial-tools-text" name="unofficialToolsText" placeholder="Pokud ano, které konkrétně?" disabled>
+        </div>
+      </fieldset>
+
+      <fieldset class="question">
+        <legend class="q-title"><span class="q-num">9</span> Proč pro tyto účely nevyužíváš stávající oficiální nástroje (Jira, Confluence, O365)? Co ti u nich nevyhovuje? (max. 3)</legend>
+        <div class="options" id="official-reasons-group">
+          <label class="option"><input type="checkbox" name="reasonsOfficialTools" value="Malá flexibilita (nemohu si systém přizpůsobit svému flow)."> Malá flexibilita (nemohu si systém přizpůsobit svému flow).</label>
+          <label class="option"><input type="checkbox" name="reasonsOfficialTools" value="Uživatelské rozhraní a přehlednost (nepracuje se mi v nich přirozeně)."> Uživatelské rozhraní a přehlednost (nepracuje se mi v nich přirozeně).</label>
+          <label class="option"><input type="checkbox" name="reasonsOfficialTools" value="Špatný přístup a vyhledávání informací."> Špatný přístup a vyhledávání informací.</label>
+          <label class="option"><input type="checkbox" name="reasonsOfficialTools" value="Chybějící / nevyhovující mobilní aplikace."> Chybějící / nevyhovující mobilní aplikace.</label>
+          <label class="option"><input type="checkbox" name="reasonsOfficialTools" value="Absence přímé integrace s AI nástroji."> Absence přímé integrace s AI nástroji.</label>
+          <label class="option"><input type="checkbox" name="reasonsOfficialTools" value="Jiný důvod" id="official-other"> Jiný důvod</label>
+        </div>
+        <div class="row" style="margin-top:10px;">
+          <input type="text" id="official-other-text" placeholder="Jiný důvod – upřesni" disabled>
+        </div>
+        <div class="small-note" id="official-reasons-note">Vyber maximálně 3 možnosti.</div>
+      </fieldset>
+
+      <p class="block-label">Blok V: Vize a strategický dopad</p>
+      <fieldset class="question">
+        <legend class="q-title"><span class="q-num">10</span> Kdyby existovalo jednotné řešení, které propojuje tvoji osobní přípravu, manažerský kontext a rychlou asynchronní spolupráci s kolegy, co by to pro tebe znamenalo a co by to mohlo přinést Air Bank?</legend>
+        <textarea name="futureValue" placeholder="Napiš cokoli tě napadne..."></textarea>
+        <div class="hint">Dej vědět, jestli tohle téma podporuješ a chceš se na něm případně podílet ;).</div>
+      </fieldset>
+
+      <button class="submit" type="submit">Odeslat</button>
+    </form>
+
+    <section class="thankyou" id="thankyou">
+      <h2>Děkujeme za vyplnění!</h2>
+      <p>Odpovědi poslouží jako podklad pro rozhodnutí o dalším směřování manažerského workspace.</p>
+    </section>
+  </div>
+
+  <script>
+    // Vloz sem URL endpointu pro ukladani dat.
+    const FORM_ENDPOINT = 'https://n8n.itsec.abank.cz/webhook-test/dotaznik-leadership';
+
+    const form = document.getElementById('survey');
+    const thankyou = document.getElementById('thankyou');
+    const submitButton = form.querySelector('button[type="submit"]');
+    const unofficialToolsText = document.getElementById('unofficial-tools-text');
+    const usesUnofficialRadios = form.querySelectorAll('input[name="usesUnofficial"]');
+    const officialOther = document.getElementById('official-other');
+    const officialOtherText = document.getElementById('official-other-text');
+    const officialReasonsGroup = document.getElementById('official-reasons-group');
+    const officialReasonsNote = document.getElementById('official-reasons-note');
+
+    const toggleOfficialOtherInput = () => {
+      officialOtherText.disabled = !officialOther.checked;
+      if (!officialOther.checked) officialOtherText.value = '';
+    };
+
+    officialOther.addEventListener('change', toggleOfficialOtherInput);
+
+    usesUnofficialRadios.forEach((radio) => {
+      radio.addEventListener('change', () => {
+        const isYes = form.querySelector('input[name="usesUnofficial"]:checked')?.value === 'ano';
+        unofficialToolsText.disabled = !isYes;
+        if (!isYes) unofficialToolsText.value = '';
+      });
+    });
+
+    officialReasonsGroup.addEventListener('change', (event) => {
+      if (event.target.name !== 'reasonsOfficialTools') return;
+
+      const selected = form.querySelectorAll('input[name="reasonsOfficialTools"]:checked');
+      if (selected.length > 3) {
+        event.target.checked = false;
+        officialReasonsNote.textContent = 'Můžeš vybrat maximálně 3 možnosti.';
+        officialReasonsNote.style.color = '#c81e4a';
+      } else {
+        officialReasonsNote.textContent = 'Vyber maximálně 3 možnosti.';
+        officialReasonsNote.style.color = '';
+      }
+
+      toggleOfficialOtherInput();
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const data = {
+        submittedAt: new Date().toISOString(),
+        name: form.name.value.trim(),
+        division: form.division.value.trim(),
+        reports: form.reports.value.trim(),
+        unifiedNeed: form.querySelector('input[name="unifiedNeed"]:checked')?.value || '',
+        painMatrix: {
+          meetingsWithoutPrep: form.querySelector('input[name="painMeetings"]:checked')?.value || '',
+          decisionHistoryLookup: form.querySelector('input[name="painHistory"]:checked')?.value || '',
+          meetingPrep: form.querySelector('input[name="painPrep"]:checked')?.value || '',
+          contextHandover: form.querySelector('input[name="painContext"]:checked')?.value || '',
+          asyncCollaboration: form.querySelector('input[name="painAsync"]:checked')?.value || '',
+          priorityOverview: form.querySelector('input[name="painPriorities"]:checked')?.value || '',
+          duplicationBetweenTools: form.querySelector('input[name="painDuplication"]:checked')?.value || '',
+          mobileAccess: form.querySelector('input[name="painMobileAccess"]:checked')?.value || ''
+        },
+        otherPain: form.otherPain.value.trim(),
+        aiOutputs: Array.from(form.querySelectorAll('input[name="aiOutputs"]:checked')).map((i) => i.value),
+        usesUnofficial: form.querySelector('input[name="usesUnofficial"]:checked')?.value || '',
+        unofficialToolsText: unofficialToolsText.value.trim(),
+        reasonsOfficialTools: Array.from(form.querySelectorAll('input[name="reasonsOfficialTools"]:checked')).map((i) => i.value),
+        reasonsOfficialToolsOther: officialOtherText.value.trim(),
+        futureValue: form.futureValue.value.trim()
+      };
+
+      if (!data.name) delete data.name;
+      if (data.usesUnofficial !== 'ano') delete data.unofficialToolsText;
+      if (!officialOther.checked) delete data.reasonsOfficialToolsOther;
+
+      if (!FORM_ENDPOINT) {
+        console.log('Dotazník – JSON výstup:', data);
+        alert('Dotazník je připraven. Pro ostré ukládání doplň FORM_ENDPOINT.');
+        return;
+      }
+
+      try {
+        submitButton.disabled = true;
+        submitButton.textContent = 'Odesílám...';
+
+        const response = await fetch(FORM_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+
+        if (!response.ok) throw new Error('Request failed');
+
+        form.style.display = 'none';
+        thankyou.style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } catch (error) {
+        console.error('Chyba při odeslání:', error);
+        alert('Odeslání se nepovedlo. Zkus to prosím znovu.');
+      } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = 'Odeslat';
+      }
+    });
+  </script>
+</body>
+</html>
